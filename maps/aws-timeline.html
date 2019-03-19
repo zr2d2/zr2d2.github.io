@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>AWS Region time slider</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<style>
+.map-overlay {
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    position: absolute;
+    width: 25%;
+    top: 0;
+    left: 0;
+    padding: 10px;
+}
+
+.map-overlay .map-overlay-inner {
+    background-color: #fff;
+    box-shadow:0 1px 2px rgba(0, 0, 0, 0.20);
+    border-radius: 3px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.map-overlay h2 {
+    line-height: 24px;
+    display: block;
+    margin: 0 0 10px;
+}
+
+.map-overlay .legend .bar {
+    height: 10px;
+    width: 100%;
+    background: linear-gradient(to right, #FCA107, #7F3121);
+}
+
+.map-overlay input {
+    background-color: transparent;
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    margin: 0;
+    cursor: ew-resize;
+}
+</style>
+
+<div id='map'></div>
+
+<div class='map-overlay top'>
+    <div class='map-overlay-inner'>
+        <h2>AWS Regions by Opening Year</h2>
+        <label id='year'></label>
+        <input id='slider' type='range' min='2007' max='2020' step='1' value='2007' />
+    </div>
+    <div class='map-overlay-inner'>
+        <div id='legend' class='legend'>
+            <div class='bar'></div>
+            <div>Availibility Zones</div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoienIyZDIiLCJhIjoiY2ppbjZwZWxiMDBvdjNxbXJmZDNjZmNsaiJ9.2imoYszBW0l01C6p4rtT8A';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/light-v9',
+    center: [-7.5898,33.5731],
+    zoom: 1.4
+});
+
+function filterBy(year) {
+
+    var filters = ['<=', 'year', year];
+    map.setFilter('region-circles', filters);
+    map.setFilter('region-labels', filters);
+
+    // Set the label to the year
+    document.getElementById('year').textContent = year;
+}
+
+map.on('load', function() {
+
+    $.get("https://api.myjson.com/bins/enucs", function(data, textStatus, jqXHR) {
+        // Create a year property value based on time
+        // used to filter against.
+        data.features = data.features.map(function(d) {
+            d.properties.year = new Date(d.properties.opened).getFullYear();
+            return d;
+        });
+
+        map.addSource('regions', {
+            'type': 'geojson',
+            'data': data
+        });
+
+        map.addLayer({
+            'id': 'region-circles',
+            'type': 'circle',
+            'source': 'regions',
+            'paint': {
+                'circle-color': [
+                    'interpolate',
+                    ['linear'],
+                    ['get', 'azs'],
+                    3, '#FCA107',
+                    4, '#7F3121'
+                ],
+                'circle-opacity': 0.75,
+                'circle-radius': [
+                    'interpolate',
+                    ['linear'],
+                    ['get', 'azs'],
+                    1, 7,
+                    2, 14,
+                    3, 21,
+                    4, 28,
+                    6, 42
+                ]
+            }
+        });
+
+        map.addLayer({
+            'id': 'region-labels',
+            'type': 'symbol',
+            'source': 'regions',
+            'layout': {
+                'text-field': ['concat', ['to-string', ['get', 'azs']], ' AZs'],
+                'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+                'text-size': 12
+            },
+            'paint': {
+                'text-color': 'rgba(0,0,0,0.5)'
+            }
+        });
+
+        // Set filter to first year
+        filterBy(2007);
+
+        document.getElementById('slider').addEventListener('input', function(e) {
+            var year = parseInt(e.target.value, 10);
+
+            filterBy(year);
+        });
+    });
+});
+</script>
+
+</body>
+</html>
