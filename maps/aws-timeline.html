@@ -4,8 +4,8 @@
     <meta charset='utf-8' />
     <title>AWS Region time slider</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css' rel='stylesheet' />
     <style>
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
@@ -69,7 +69,7 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="//d3js.org/d3.v3.min.js"></script>
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoienIyZDIiLCJhIjoiY2ppbjZwZWxiMDBvdjNxbXJmZDNjZmNsaiJ9.2imoYszBW0l01C6p4rtT8A';
 var map = new mapboxgl.Map({
@@ -91,13 +91,11 @@ function filterBy(year) {
 
 map.on('load', function() {
 
-    $.get("https://gist.githubusercontent.com/zr2d2/05452718e9336941924d89d192cc60c6/raw/fb3a06e6ff1e7e2debdacc7e02cb0840d4f3047f/map.geojson", function(response) {
+    d3.json("https://gist.githubusercontent.com/zr2d2/05452718e9336941924d89d192cc60c6/raw/fb3a06e6ff1e7e2debdacc7e02cb0840d4f3047f/map.geojson", function(err,data) {
+        if (err) throw err;
+
         // Create a year property value based on time
         // used to filter against.
-
-        text = response.responseText
-
-        data = JSON.parse(text)
 
         data.features = data.features.map(function(d) {
             d.properties.year = new Date(d.properties.opened).getFullYear();
