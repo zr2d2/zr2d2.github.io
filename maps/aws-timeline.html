@@ -74,9 +74,10 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoienIyZDIiLCJhIjoiY2ppbjZwZWxiMDBvdjNxbXJmZDNjZmNsaiJ9.2imoYszBW0l01C6p4rtT8A';
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/light-v9',
+    style: 'mapbox://styles/mapbox/light-v10',
     center: [-7.5898,33.5731],
-    zoom: 1.4
+    zoom: 1.6,
+    hash: true
 });
 
 function filterBy(year) {
