@@ -91,9 +91,12 @@ function filterBy(year) {
 
 map.on('load', function() {
 
-    $.get("https://gist.githubusercontent.com/zr2d2/05452718e9336941924d89d192cc60c6/raw/fb3a06e6ff1e7e2debdacc7e02cb0840d4f3047f/map.geojson", function(data, textStatus, jqXHR) {
+    $.get("https://gist.githubusercontent.com/zr2d2/05452718e9336941924d89d192cc60c6/raw/fb3a06e6ff1e7e2debdacc7e02cb0840d4f3047f/map.geojson", function(response) {
         // Create a year property value based on time
         // used to filter against.
+
+        data = JSON.parse(response.responseText
+
         data.features = data.features.map(function(d) {
             d.properties.year = new Date(d.properties.opened).getFullYear();
             return d;
