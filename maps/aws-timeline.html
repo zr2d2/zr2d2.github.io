@@ -95,7 +95,7 @@ map.on('load', function() {
         // Create a year property value based on time
         // used to filter against.
 
-        data = JSON.parse(response.responseText
+        data = JSON.parse(response.responseText)
 
         data.features = data.features.map(function(d) {
             d.properties.year = new Date(d.properties.opened).getFullYear();
