@@ -4,8 +4,8 @@
     <meta charset='utf-8' />
     <title>AWS Region time slider</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css' rel='stylesheet' />
     <style>
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
@@ -59,7 +59,7 @@
     <div class='map-overlay-inner'>
         <h2>AWS Regions by Opening Year</h2>
         <label id='year'></label>
-        <input id='slider' type='range' min='2007' max='2020' step='1' value='2007' />
+        <input id='slider' type='range' min='2007' max='2021' step='1' value='2007' />
     </div>
     <div class='map-overlay-inner'>
         <div id='legend' class='legend'>
@@ -69,14 +69,15 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="//d3js.org/d3.v3.min.js"></script>
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoienIyZDIiLCJhIjoiY2ppbjZwZWxiMDBvdjNxbXJmZDNjZmNsaiJ9.2imoYszBW0l01C6p4rtT8A';
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/light-v9',
-    center: [-7.5898,33.5731],
-    zoom: 1.4
+    style: 'mapbox://styles/mapbox/light-v10',
+    center: [19.85, 16.26],
+    zoom: 2.25,
+    hash: true
 });
 
 function filterBy(year) {
@@ -91,9 +92,12 @@ function filterBy(year) {
 
 map.on('load', function() {
 
-    $.get("https://api.myjson.com/bins/enucs", function(data, textStatus, jqXHR) {
+    d3.json("https://gist.githubusercontent.com/zr2d2/05452718e9336941924d89d192cc60c6/raw/5f29603575fd65262b0fc8019c5da2fef44cfd7e/map.geojson", function(err,data) {
+        if (err) throw err;
+
         // Create a year property value based on time
         // used to filter against.
+
         data.features = data.features.map(function(d) {
             d.properties.year = new Date(d.properties.opened).getFullYear();
             return d;
@@ -153,6 +157,44 @@ map.on('load', function() {
             filterBy(year);
         });
     });
+});
+
+// Create a popup, but don't add it to the map yet.
+var popup = new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: false
+});
+
+map.on('mouseenter', 'places', function(e) {
+    // Change the cursor style as a UI indicator.
+    map.getCanvas().style.cursor = 'pointer';
+
+    var coordinates = e.features[0].geometry.coordinates.slice();
+
+    var name   = e.features[0].properties.name;
+    var azs    = e.features[0].properties.azs;
+    var opened = e.features[0].properties.opened;
+
+    var desription = '<b>${name}</b> (${azs})<p>opened: ${opened}</p>'
+
+    // Ensure that if the map is zoomed out such that multiple
+    // copies of the feature are visible, the popup appears
+    // over the copy being pointed to.
+    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    }
+
+    // Populate the popup and set its coordinates
+    // based on the feature found.
+    popup
+    .setLngLat(coordinates)
+    .setHTML(description)
+    .addTo(map);
+});
+
+map.on('mouseleave', 'places', function() {
+    map.getCanvas().style.cursor = '';
+    popup.remove();
 });
 </script>
 
