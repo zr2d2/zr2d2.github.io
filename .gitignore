@@ -1,0 +1,2 @@
+# Ignore generated site because GitHub generates the site dynamically using Jekyll when the page is published
+_site/
