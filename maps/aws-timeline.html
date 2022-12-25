@@ -92,7 +92,7 @@ function filterBy(year) {
 
 map.on('load', function() {
 
-    d3.json("https://gist.githubusercontent.com/zr2d2/05452718e9336941924d89d192cc60c6/raw/fd2bf1b74c1b61a2764448c777b4bcad3907a31a/map.geojson", function(err,data) {
+    d3.json("https://gist.github.com/zr2d2/05452718e9336941924d89d192cc60c6", function(err,data) {
         if (err) throw err;
 
         // Create a year property value based on time
