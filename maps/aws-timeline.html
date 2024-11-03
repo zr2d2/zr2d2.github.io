@@ -9,49 +9,42 @@
     <style>
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
+        .map-overlay {
+            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            position: absolute;
+            width: 25%;
+            top: 0;
+            left: 0;
+            padding: 10px;
+        }
+        .map-overlay .map-overlay-inner {
+            background-color: #fff;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.20);
+            border-radius: 3px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .map-overlay h2 {
+            line-height: 24px;
+            display: block;
+            margin: 0 0 10px;
+        }
+        .map-overlay .legend .bar {
+            height: 10px;
+            width: 100%;
+            background: linear-gradient(to right, #FCA107, #7F3121);
+        }
+        .map-overlay input {
+            background-color: transparent;
+            display: inline-block;
+            width: 100%;
+            position: relative;
+            margin: 0;
+            cursor: ew-resize;
+        }
     </style>
 </head>
 <body>
-
-<style>
-.map-overlay {
-    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-    position: absolute;
-    width: 25%;
-    top: 0;
-    left: 0;
-    padding: 10px;
-}
-
-.map-overlay .map-overlay-inner {
-    background-color: #fff;
-    box-shadow:0 1px 2px rgba(0, 0, 0, 0.20);
-    border-radius: 3px;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-.map-overlay h2 {
-    line-height: 24px;
-    display: block;
-    margin: 0 0 10px;
-}
-
-.map-overlay .legend .bar {
-    height: 10px;
-    width: 100%;
-    background: linear-gradient(to right, #FCA107, #7F3121);
-}
-
-.map-overlay input {
-    background-color: transparent;
-    display: inline-block;
-    width: 100%;
-    position: relative;
-    margin: 0;
-    cursor: ew-resize;
-}
-</style>
 
 <div id='map'></div>
 
@@ -59,12 +52,12 @@
     <div class='map-overlay-inner'>
         <h2>AWS Regions by Opening Year</h2>
         <label id='year'></label>
-        <input id='slider' type='range' min='2007' max='2023' step='1' value='2007' />
+        <input id='slider' type='range' min='2007' max='2023' step='1' value='2007' aria-label="Year slider"/>
     </div>
     <div class='map-overlay-inner'>
         <div id='legend' class='legend'>
             <div class='bar'></div>
-            <div>Availibility Zones</div>
+            <div>Availability Zones</div>
         </div>
     </div>
 </div>
@@ -81,22 +74,15 @@ var map = new mapboxgl.Map({
 });
 
 function filterBy(year) {
-
     var filters = ['<=', 'year', year];
     map.setFilter('region-circles', filters);
     map.setFilter('region-labels', filters);
-
-    // Set the label to the year
     document.getElementById('year').textContent = year;
 }
 
 map.on('load', function() {
-
-    d3.json("https://gist.githubusercontent.com/zr2d2/05452718e9336941924d89d192cc60c6/raw/77e1a23d24dfe9279c304a78b8e848103b40b651/map.geojson", function(err,data) {
-        if (err) throw err;
-
-        // Create a year property value based on time
-        // used to filter against.
+    d3.json("https://gist.githubusercontent.com/zr2d2/05452718e9336941924d89d192cc60c6/raw/77e1a23d24dfe9279c304a78b8e848103b40b651/map.geojson", function(err, data) {
+        if (err) throw new Error("Data loading error: " + err);
 
         data.features = data.features.map(function(d) {
             d.properties.year = new Date(d.properties.opened).getFullYear();
@@ -148,51 +134,36 @@ map.on('load', function() {
             }
         });
 
-        // Set filter to first year
         filterBy(2007);
 
         document.getElementById('slider').addEventListener('input', function(e) {
             var year = parseInt(e.target.value, 10);
-
             filterBy(year);
         });
     });
 });
 
-// Create a popup, but don't add it to the map yet.
 var popup = new mapboxgl.Popup({
     closeButton: false,
     closeOnClick: false
 });
 
-map.on('mouseenter', 'places', function(e) {
-    // Change the cursor style as a UI indicator.
+map.on('mouseenter', 'region-circles', function(e) {
     map.getCanvas().style.cursor = 'pointer';
-
     var coordinates = e.features[0].geometry.coordinates.slice();
-
-    var name   = e.features[0].properties.name;
-    var azs    = e.features[0].properties.azs;
+    var name = e.features[0].properties.name;
+    var azs = e.features[0].properties.azs;
     var opened = e.features[0].properties.opened;
+    var description = `<b>${name}</b> (${azs})<p>Opened: ${opened}</p>`;
 
-    var desription = '<b>${name}</b> (${azs})<p>opened: ${opened}</p>'
-
-    // Ensure that if the map is zoomed out such that multiple
-    // copies of the feature are visible, the popup appears
-    // over the copy being pointed to.
     while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
         coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
     }
 
-    // Populate the popup and set its coordinates
-    // based on the feature found.
-    popup
-    .setLngLat(coordinates)
-    .setHTML(description)
-    .addTo(map);
+    popup.setLngLat(coordinates).setHTML(description).addTo(map);
 });
 
-map.on('mouseleave', 'places', function() {
+map.on('mouseleave', 'region-circles', function() {
     map.getCanvas().style.cursor = '';
     popup.remove();
 });
