@@ -52,7 +52,7 @@
     <div class='map-overlay-inner'>
         <h2>AWS Regions by Opening Year</h2>
         <label id='year'></label>
-        <input id='slider' type='range' min='2007' max='2023' step='1' value='2007' aria-label="Year slider"/>
+        <input id='slider' type='range' min='2007' max='2025' step='1' value='2007' aria-label="Year slider"/>
     </div>
     <div class='map-overlay-inner'>
         <div id='legend' class='legend'>
@@ -137,8 +137,9 @@ map.on('load', function() {
         filterBy(2007);
 
         document.getElementById('slider').addEventListener('input', function(e) {
-            var year = parseInt(e.target.value, 10);
-            filterBy(year);
+            const year = parseInt(e.target.value, 10);
+            const currentYear = timeScale(timeIndex);
+            filterBy(currentYear);
         });
     });
 });
