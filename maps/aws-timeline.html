@@ -62,7 +62,7 @@
     </div>
 </div>
 
-<script src="//d3js.org/d3.v3.min.js"></script>
+<script src="//d3js.org/d3.v7.min.js"></script>
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoienIyZDIiLCJhIjoiY2ppbjZwZWxiMDBvdjNxbXJmZDNjZmNsaiJ9.2imoYszBW0l01C6p4rtT8A';
 var map = new mapboxgl.Map({
@@ -81,69 +81,76 @@ function filterBy(year) {
 }
 
 map.on('load', function() {
-    d3.json("https://gist.githubusercontent.com/zr2d2/05452718e9336941924d89d192cc60c6/raw/77e1a23d24dfe9279c304a78b8e848103b40b651/map.geojson", function(err, data) {
-        if (err) throw new Error("Data loading error: " + err);
+    d3.json("https://gist.githubusercontent.com/zr2d2/05452718e9336941924d89d192cc60c6/raw/77e1a23d24dfe9279c304a78b8e848103b40b651/map.geojson")
+        .then(function(data) {
+            // Add `year` property from "opened"
+            data.features = data.features.map(function(d) {
+                if (d.properties.opened) {
+                    d.properties.year = new Date(d.properties.opened).getFullYear();
+                }
+                return d;
+            });
 
-        data.features = data.features.map(function(d) {
-            d.properties.year = new Date(d.properties.opened).getFullYear();
-            return d;
+            map.addSource('regions', {
+                'type': 'geojson',
+                'data': data
+            });
+
+            map.addLayer({
+                'id': 'region-circles',
+                'type': 'circle',
+                'source': 'regions',
+                'paint': {
+                    'circle-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['get', 'azs'],
+                        3, '#FCA107',
+                        4, '#7F3121'
+                    ],
+                    'circle-opacity': 0.75,
+                    'circle-radius': [
+                        'interpolate',
+                        ['linear'],
+                        ['get', 'azs'],
+                        1, 7,
+                        2, 14,
+                        3, 21,
+                        4, 28,
+                        6, 42
+                    ]
+                }
+            });
+
+            map.addLayer({
+                'id': 'region-labels',
+                'type': 'symbol',
+                'source': 'regions',
+                'layout': {
+                    'text-field': ['concat', ['to-string', ['get', 'azs']], ' AZs'],
+                    'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+                    'text-size': 12
+                },
+                'paint': {
+                    'text-color': 'rgba(0,0,0,0.5)'
+                }
+            });
+
+            // Initialize filter to a year
+            filterBy(2007);
+
+            // Slider listener
+            document.getElementById('slider').addEventListener('input', function(e) {
+                const year = parseInt(e.target.value, 10);
+                filterBy(year);
+            });
+        })
+        .catch(function(err) {
+            console.error("Data loading error:", err);
         });
-
-        map.addSource('regions', {
-            'type': 'geojson',
-            'data': data
-        });
-
-        map.addLayer({
-            'id': 'region-circles',
-            'type': 'circle',
-            'source': 'regions',
-            'paint': {
-                'circle-color': [
-                    'interpolate',
-                    ['linear'],
-                    ['get', 'azs'],
-                    3, '#FCA107',
-                    4, '#7F3121'
-                ],
-                'circle-opacity': 0.75,
-                'circle-radius': [
-                    'interpolate',
-                    ['linear'],
-                    ['get', 'azs'],
-                    1, 7,
-                    2, 14,
-                    3, 21,
-                    4, 28,
-                    6, 42
-                ]
-            }
-        });
-
-        map.addLayer({
-            'id': 'region-labels',
-            'type': 'symbol',
-            'source': 'regions',
-            'layout': {
-                'text-field': ['concat', ['to-string', ['get', 'azs']], ' AZs'],
-                'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
-                'text-size': 12
-            },
-            'paint': {
-                'text-color': 'rgba(0,0,0,0.5)'
-            }
-        });
-
-        filterBy(2007);
-
-        document.getElementById('slider').addEventListener('input', function(e) {
-            const year = parseInt(e.target.value, 10);
-            const currentYear = timeScale(timeIndex);
-            filterBy(currentYear);
-        });
-    });
 });
 
+// Popup
 var popup = new mapboxgl.Popup({
     closeButton: false,
     closeOnClick: false
