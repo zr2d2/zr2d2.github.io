@@ -74,33 +74,61 @@ var map = new mapboxgl.Map({
 });
 
 function filterBy(year) {
-    var filters = ['<=', 'year', year];
+    // Only keep features newer than minYear, up to slider value
+    const filters = ['all',
+        ['>=', 'year', minYear],
+        ['<=', 'year', year]
+    ];
+
     map.setFilter('region-circles', filters);
     map.setFilter('region-labels', filters);
+
     document.getElementById('year').textContent = year;
 }
+
+document.getElementById('slider').addEventListener('input', function(e) {
+    const year = parseInt(e.target.value, 10);
+    filterBy(year);
+});
+
+let minYear; // will hold the earliest year
+let dataByRegion = {}; // keep only the latest feature per name
 
 map.on('load', function() {
     d3.json("https://gist.githubusercontent.com/zr2d2/05452718e9336941924d89d192cc60c6/raw/77e1a23d24dfe9279c304a78b8e848103b40b651/map.geojson")
         .then(function(data) {
-            // Add `year` property from "opened"
-            data.features = data.features.map(function(d) {
-                if (d.properties.opened) {
-                    d.properties.year = new Date(d.properties.opened).getFullYear();
-                }
-                return d;
+            // Add a year property
+            data.features.forEach(function(d) {
+                d.properties.year = new Date(d.properties.opened).getFullYear();
             });
 
+            // Find the earliest year in the dataset
+            minYear = d3.min(data.features, d => d.properties.year);
+
+            // Index by region, keeping only the latest feature per region
+            data.features.forEach(f => {
+                const region = f.properties.region;
+                if (!dataByRegion[region] || f.properties.year > dataByRegion[region].properties.year) {
+                    dataByRegion[region] = f;
+                }
+            });
+
+            // Build a new feature collection with only latest entries
+            const latestData = {
+                type: "FeatureCollection",
+                features: Object.values(dataByRegion)
+            };
+
             map.addSource('regions', {
-                'type': 'geojson',
-                'data': data
+                type: 'geojson',
+                data: latestData
             });
 
             map.addLayer({
-                'id': 'region-circles',
-                'type': 'circle',
-                'source': 'regions',
-                'paint': {
+                id: 'region-circles',
+                type: 'circle',
+                source: 'regions',
+                paint: {
                     'circle-color': [
                         'interpolate',
                         ['linear'],
@@ -123,30 +151,24 @@ map.on('load', function() {
             });
 
             map.addLayer({
-                'id': 'region-labels',
-                'type': 'symbol',
-                'source': 'regions',
-                'layout': {
+                id: 'region-labels',
+                type: 'symbol',
+                source: 'regions',
+                layout: {
                     'text-field': ['concat', ['to-string', ['get', 'azs']], ' AZs'],
                     'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
                     'text-size': 12
                 },
-                'paint': {
+                paint: {
                     'text-color': 'rgba(0,0,0,0.5)'
                 }
             });
 
-            // Initialize filter to a year
-            filterBy(2007);
-
-            // Slider listener
-            document.getElementById('slider').addEventListener('input', function(e) {
-                const year = parseInt(e.target.value, 10);
-                filterBy(year);
-            });
+            // Initial filter
+            filterBy(minYear);
         })
-        .catch(function(err) {
-            console.error("Data loading error:", err);
+        .catch(err => {
+            throw new Error("Data loading error: " + err);
         });
 });
 
