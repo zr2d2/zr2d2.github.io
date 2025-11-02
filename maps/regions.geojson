@@ -1,0 +1,499 @@
+{
+    "type": "FeatureCollection",
+    "features": [{
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "marker-symbol": "",
+            "name": "Asia Pacific (Seoul)",
+            "region": "ap-northeast-2",
+            "azs": 4,
+            "opened": "7/16/2020"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [126.88522338867186, 37.514083168101116]
+        },
+        "id": "31e966bd-487f-471e-b136-24214fabb8f9"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "marker-symbol": "",
+            "name": "Asia Pacific (Jakarta)",
+            "region": "ap-southeast-3",
+            "azs": 3,
+            "opened": "12/13/2021"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [106.759478, -6.2295712]
+        },
+        "id": "78e92c9e-d58e-420a-bf4f-5db86e76c560"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "small",
+            "marker-symbol": "",
+            "name": "US East (N. Virginia)",
+            "region": "us-east-1",
+            "azs": 1,
+            "opened": "8/25/2006"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-77.48794555664062, 39.04398611520078]
+        },
+        "id": "8e71ca2e-81ef-40b0-ab11-a826a8974fbb"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "large",
+            "marker-symbol": "",
+            "name": "US East (N. Virginia)",
+            "region": "us-east-1",
+            "azs": 6,
+            "opened": "2008"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-77.48794555664062, 39.04398611520078]
+        },
+        "id": "8e71ca2e-81ef-40b0-ab11-a826a8974dbb"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "marker-symbol": "",
+            "name": "US East (Ohio)",
+            "region": "us-east-2",
+            "azs": 3,
+            "opened": "10/17/2016"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-83.00651550292969, 39.9650169516287]
+        },
+        "id": "17d50318-7e03-4099-87a1-0b5444c76ff0"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "marker-symbol": "",
+            "name": "AWS GovCloud (US-East)",
+            "region": "us-gov-east-1",
+            "azs": 3,
+            "opened": "11/13/2018"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-82.9, 39.9650169516287]
+        },
+        "id": "44dc6f9f-53cb-4d37-af94-e09ca4d903ff"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "name": "US West (Oregon)",
+            "region": "us-west-2",
+            "azs": 3,
+            "opened": "11/9/2011"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-119.74548339843751, 45.83071305019327]
+        },
+        "id": "439992db-b37c-4b58-9464-54d2540a9563"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "marker-symbol": "",
+            "name": "Europe (Ireland)",
+            "region": "eu-west-1",
+            "azs": 3,
+            "opened": "11/6/2007"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-6.23199462890625, 53.41689867661602]
+        },
+        "id": "5798d93b-3cff-490d-9b96-8ee4061367a7"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "marker-symbol": "",
+            "name": "Europe (London)",
+            "region": "eu-west-2",
+            "azs": 3,
+            "opened": "12/13/2016"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-2.4169921874999996, 51.53907526203596]
+        },
+        "id": "11b0b72e-fa28-44c7-9d78-eda6c768f3e1"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "marker-symbol": "",
+            "name": "US West (N. California)",
+            "region": "us-west-1",
+            "azs": 3,
+            "opened": "12/3/2009"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-120.03387451171875, 36.83456911447562]
+        },
+        "id": "99e894b6-ef3d-4103-a996-287356428430"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "marker-symbol": "",
+            "name": "South America (São Paulo)",
+            "region": "sa-east-1",
+            "azs": 3,
+            "opened": "12/14/2011"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-46.878662109375, -23.37251382235947]
+        },
+        "id": "952615fe-06ae-474b-a89f-21d22b7d0e1a"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "marker-symbol": "",
+            "name": "Asia Pacific (Sydney)",
+            "region": "ap-southeast-2",
+            "azs": 3,
+            "opened": "11/12/2012"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [151.0565185546875, -33.92968762757659]
+        },
+        "id": "a3928f7d-5111-4bf4-8118-bd860528f878"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "marker-symbol": "",
+            "name": "Asia Pacific (Singapore)",
+            "region": "ap-southeast-1",
+            "azs": 3,
+            "opened": "4/29/2010"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [103.83041381835938, 1.352566007071275]
+        },
+        "id": "0880909a-dd40-474e-8654-7348cd36079f"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "small",
+            "marker-symbol": "",
+            "name": "Asia Pacific (Mumbai)",
+            "region": "ap-south-1",
+            "azs": 2,
+            "opened": "6/27/2016"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [72.8668212890625, 19.046541312042145]
+        },
+        "id": "0de522db-7341-46ba-8403-7497083771a4"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "marker-symbol": "",
+            "name": "Asia Pacific (Tokyo)",
+            "region": "ap-northeast-1",
+            "azs": 4,
+            "opened": "3/2/2011"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [139.74266052246094, 35.68686010878784]
+        },
+        "id": "449b93b8-c665-4b75-b3d9-1ff8c1fc9772"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "small",
+            "marker-symbol": "",
+            "name": "Asia Pacific (Osaka-Local),",
+            "region": "ap-northeast-3",
+            "azs": 1,
+            "opened": "2/12/2018"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [135.51361083984375, 34.713395809196285]
+        },
+        "id": "c2ca942a-e899-4fce-919d-4a990288a152"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "small",
+            "marker-symbol": "",
+            "name": "Canada (Central)",
+            "region": "ca-central-1",
+            "azs": 2,
+            "opened": "12/8/2016"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-73.839111328125, 45.57560020947802]
+        },
+        "id": "ac0c0c1a-daaf-49e1-9e0f-f30e543b4c82"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "small",
+            "marker-symbol": "",
+            "name": "China (Beijing)",
+            "region": "cn-north-1",
+            "azs": 2,
+            "opened": "12/18/2013"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [116.49902343749999, 39.90130858574735]
+        },
+        "id": "322ece21-503e-4366-a25b-f52e78e2b03a"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "marker-symbol": "",
+            "name": "China (Beijing)",
+            "region": "cn-north-1",
+            "azs": 3,
+            "opened": "6/7/2021"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [116.49902343749999, 39.90130858574735]
+        },
+        "id": "2fae4fe1-c40d-46d9-9657-e34366c4d551"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "marker-symbol": "",
+            "name": "China (Ningxia)",
+            "region": "cn-northwest-1",
+            "azs": 3,
+            "opened": "12/11/2017"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [106.01806640624999, 38.41055825094609]
+        },
+        "id": "182dd305-6fe1-4f56-8b75-1d471f869165"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "marker-symbol": "",
+            "name": "Europe (Frankfurt)",
+            "region": "eu-central-1",
+            "azs": 3,
+            "opened": "10/23/2014"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [8.8385009765625, 50.17689812200107]
+        },
+        "id": "85277e78-c3c6-422e-88f0-2c8adb160db6"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "marker-symbol": "",
+            "name": "Europe (Paris)",
+            "region": "eu-west-3",
+            "azs": 3,
+            "opened": "12/18/2017"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [2.1807861328125, 48.91527985344383]
+        },
+        "id": "e80c0a86-804a-4eec-8a91-531750838591"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "marker-symbol": "",
+            "name": "AWS GovCloud (US-West)",
+            "region": "us-gov-west-1",
+            "azs": 3,
+            "opened": "8/16/2011"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-120.84960937499999, 42.97250158602597]
+        },
+        "id": "018d31d0-204b-4156-b3bb-50c3a18ee16b"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "marker-symbol": "building",
+            "name": "AWS C2S",
+            "region": "us-secret-1",
+            "azs": 3,
+            "opened": "1/1/2013"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-77.1775, 38.934167]
+        },
+        "id": "24d0210e-5e84-432f-9453-6a577afa984b"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "marker-symbol": "",
+            "name": "Africa (Cape Town)",
+            "region": "af-south-1",
+            "azs": 3,
+            "opened": "4/22/2020"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [18.423889, -33.914651]
+        },
+        "id": "f0c0419e-7e13-4cbc-b47c-f8815d71bab1"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "marker-symbol": "",
+            "name": "Europe (Milan)",
+            "region": "eu-south-1",
+            "azs": 3,
+            "opened": "4/27/2020"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [9.19, 45.466944]
+        },
+        "id": "6640b382-d27f-4ca5-acaa-ccb489b1c19d"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "marker-symbol": "",
+            "name": "Asia Pacific (Osaka),",
+            "region": "ap-northeast-3",
+            "azs": 3,
+            "opened": "3/1/2021"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [135.51361083984375, 34.713395809196285]
+        },
+        "id": "3b962732-2245-4219-9c23-2e5e365170c8"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "marker-symbol": "",
+            "name": "Middle East (UAE)",
+            "region": "me-central-1",
+            "azs": 3,
+            "opened": "8/29/2022"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [54.6377275, 24.3431912]
+        },
+        "id": "f95b358a-139f-4ff1-a183-0c0ec87a2fc3"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "marker-symbol": "",
+            "name": "Asia Pacific (Hyderabad)",
+            "region": "ap-south-2",
+            "azs": 3,
+            "opened": "11/21/2022"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [78.4776571, 17.4224567]
+        },
+        "id": "60003b5c-869d-4cbd-b3e7-f4e859d65102"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "marker-symbol": "",
+            "name": "Europe (Zurich)",
+            "region": "eu-central-2",
+            "azs": 3,
+            "opened": "11/8/2022"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [8.5195087, 47.3827621]
+        },
+        "id": "f6e543d1-822d-4f4a-b183-802dccae6299"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "marker-color": "#7e7e7e",
+            "marker-size": "medium",
+            "marker-symbol": "",
+            "name": "Europe (Spain)",
+            "region": "eu-south-2",
+            "azs": 3,
+            "opened": "11/15/2022"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-3.8196194, 40.4381311]
+        },
+        "id": "9156b6bd-3e60-49dd-bd84-ac5c74fd04d1"
+    }]
+}

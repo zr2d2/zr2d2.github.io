@@ -93,9 +93,8 @@ document.getElementById('slider').addEventListener('input', function(e) {
 
 let minYear; // will hold the earliest year
 let dataByRegion = {}; // keep only the latest feature per name
-
 map.on('load', function() {
-    d3.json("https://gist.githubusercontent.com/zr2d2/05452718e9336941924d89d192cc60c6/raw/77e1a23d24dfe9279c304a78b8e848103b40b651/map.geojson")
+    d3.json("https://gist.githubusercontent.com/zr2d2/05452718e9336941924d89d192cc60c6/raw/5f126d3f12ca854fbf3e79c952fda9efc890cc6d/map.geojson")
         .then(function(data) {
             // Add a year property
             data.features.forEach(function(d) {
