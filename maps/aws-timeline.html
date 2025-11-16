@@ -106,6 +106,7 @@ map.on('load', function() {
 
             // Index by region, keeping only the latest feature per region
             data.features.forEach(f => {
+                const region = f.properties.region;
                 let latest = dataByRegion[region];
                 let y = f.properties.year;
 
