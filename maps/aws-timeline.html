@@ -74,16 +74,29 @@ var map = new mapboxgl.Map({
 });
 
 function filterBy(year) {
-    // Only keep features newer than minYear, up to slider value
-    const filters = ['all',
-        ['>=', 'year', minYear],
-        ['<=', 'year', year]
-    ];
+    const latestByRegion = {};
 
-    map.setFilter('region-circles', filters);
-    map.setFilter('region-labels', filters);
+    data.features.forEach(feature => {
+        const openedYear = new Date(feature.properties.opened).getFullYear();
 
-    document.getElementById('year').textContent = year;
+        if (openedYear > year) return;
+
+        const region = feature.properties.region;
+
+        if (
+            !latestByRegion[region] ||
+            openedYear > latestByRegion[region].properties.year
+        ) {
+            latestByRegion[region] = feature;
+        }
+    });
+
+    map.getSource("regions").setData({
+        type: "FeatureCollection",
+        features: Object.values(latestByRegion)
+    });
+
+    document.getElementById("year").textContent = year;
 }
 
 document.getElementById('slider').addEventListener('input', function(e) {
